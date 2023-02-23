@@ -1,7 +1,9 @@
-from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse, HttpResponseRedirect 
+from django.shortcuts import render, get_object_or_404, redirect
+from django.http import HttpResponseRedirect, HttpResponse 
 from django.urls import reverse
 from django.views import generic
+from django.utils import timezone
+
 
 from .models import Question, Choice
 
@@ -32,11 +34,15 @@ class IndexView(generic.ListView):
 
     def get_queryset(self):
         """return the last five published questions"""
-        return Question.objects.order_by("-pub_date")[:5]
+        return Question.objects.filter(pub_date__lte=timezone.now()).order_by("-pub_date")[:5]
 
 class DetailView(generic.DetailView):
     model = Question
     template_name = "polls/detail.html"
+
+    def get_queryset(self):
+        """Exclude any questions that arent published yet"""
+        return Question.objects.filter(pub_date__lte=timezone.now())
         
 class ResultView(generic.DetailView):
     model = Question
@@ -49,9 +55,9 @@ def vote(request, question_id):
     except (KeyError, Choice.DoesNotExist):
         return render(request, "polls/detail.html", { 
             "question": question,
-            "error_message": "Elija una respuesta"
+            "error_message": "Choose an answer"
         })
     else:
         selected_choice.votes +=1
         selected_choice.save()
-        return HttpResponseRedirect(reverse("polls:results", args=(question.id)))
+        return redirect('polls:results', question_id)
