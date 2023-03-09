@@ -1,8 +1,8 @@
 form {
     background: linear-gradient(
         to right,
-        hsl(98, 100%, 62%),
-        hsl(204, 100%,  59%)
+        hsl(43, 99%, 48%),
+        hsl(0, 100%, 100%)
     );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -16,7 +16,7 @@ h1 {
 
 fieldset {
     align-items: center;
-    border: 1px solid white;
+    border: 5px solid white;
     display: flex;
     flex-direction: column;
     justify-content: center;
