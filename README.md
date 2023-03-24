@@ -8,7 +8,7 @@ This is a web application built with python and Django. It's all about voting qu
 
 1. Clone the repository
 ```
-git clone https://github.com/diazms04/BLOGAPP-DJANGO.git
+git clone https://github.com/diazms04/CarsAPP.git
 ```
 
 2. Create a virtual environment
